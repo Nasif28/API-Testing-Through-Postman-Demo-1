@@ -1,0 +1,388 @@
+{
+	"info": {
+		"_postman_id": "19aa852a-6256-4df9-8cd0-1276038a286d",
+		"name": "Buyer Address",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27394915"
+	},
+	"item": [
+		{
+			"name": "Buyer Sign In",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Buyer should be able to sign in",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody)\r",
+											"pm.environment.set(\"buyer_token\", jsonData.token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"password\": \"112233Test!\",\r\n  \"email\": \"bugtrackingteam2@gmail.com\"\r\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/user/signin",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"signin"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "Add Address",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Buyer should be able to add the address",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successfully Created the Address\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Body matches the sucess key\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"success\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2EzM2YxOTc5YTliNzEyODRiOTljNzgiLCJyb2xlIjoiYWRtaW4iLCJlbWFpbCI6ImJ1Z3RyYWNraW5ndGVhbTJAZ21haWwuY29tIiwiaWF0IjoxNzEzMjQ1MTUzLCJleHAiOjE3MTMzMzE1NTN9.VF-rD4BR9xtBuvCpjYivoYZq_N0K2Wy5yy6vbUuRL90",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Abc Def\",\r\n  \"mobileNumber\": \"011111111111\",\r\n  \"state\": \"MyStage\",\r\n  \"city\": \"MyCity\",\r\n  \"zip\": \"48902\",\r\n  \"address\": \"MyAddress\"\r\n}"
+								},
+								"url": {
+									"raw": "https://staging-be-ecom.techserve4u.com/api/address/create",
+									"protocol": "https",
+									"host": [
+										"staging-be-ecom",
+										"techserve4u",
+										"com"
+									],
+									"path": [
+										"api",
+										"address",
+										"create"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "Buyer should not be create address with blank name field",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2EzM2YxOTc5YTliNzEyODRiOTljNzgiLCJyb2xlIjoiYWRtaW4iLCJlbWFpbCI6ImJ1Z3RyYWNraW5ndGVhbTJAZ21haWwuY29tIiwiaWF0IjoxNzEzMjQ1MTUzLCJleHAiOjE3MTMzMzE1NTN9.VF-rD4BR9xtBuvCpjYivoYZq_N0K2Wy5yy6vbUuRL90",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"\",\r\n  \"mobileNumber\": \"011111111111\",\r\n  \"state\": \"MyStage\",\r\n  \"city\": \"MyCity\",\r\n  \"zip\": \"48902\",\r\n  \"address\": \"MyAddress\"\r\n}"
+								},
+								"url": {
+									"raw": "https://staging-be-ecom.techserve4u.com/api/address/create",
+									"protocol": "https",
+									"host": [
+										"staging-be-ecom",
+										"techserve4u",
+										"com"
+									],
+									"path": [
+										"api",
+										"address",
+										"create"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Get Address",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Buyer should be able to get the address",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2EzM2YxOTc5YTliNzEyODRiOTljNzgiLCJyb2xlIjoiYWRtaW4iLCJlbWFpbCI6ImJ1Z3RyYWNraW5ndGVhbTJAZ21haWwuY29tIiwiaWF0IjoxNzEzMjQ1MTUzLCJleHAiOjE3MTMzMzE1NTN9.VF-rD4BR9xtBuvCpjYivoYZq_N0K2Wy5yy6vbUuRL90",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://staging-be-ecom.techserve4u.com/api/address/getaddress",
+									"protocol": "https",
+									"host": [
+										"staging-be-ecom",
+										"techserve4u",
+										"com"
+									],
+									"path": [
+										"api",
+										"address",
+										"getaddress"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "Buyer should not be able to get the address with invalid token",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2EzM2YxOTc5YTliNzEyODRiOTljNzgiLCJyb2xlIjoiYWRtaW4iLCJlbWFpbCI6ImJ1Z3RyYWNraW5ndGVhbTJAZ21haWwuY29tIiwiaWF0IjoxNzEzMjQ1MTUzLCJleHAiOjE3MTMzMzE1NTN9.VF-rD4BR9xtBuvCpjYivoYZq_N0K2Wy5yy6vbUuRL90",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://staging-be-ecom.techserve4u.com/api/address/getaddress",
+									"protocol": "https",
+									"host": [
+										"staging-be-ecom",
+										"techserve4u",
+										"com"
+									],
+									"path": [
+										"api",
+										"address",
+										"getaddress"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Update Address",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Buyer should be able to update the address",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2EzM2YxOTc5YTliNzEyODRiOTljNzgiLCJyb2xlIjoiYWRtaW4iLCJlbWFpbCI6ImJ1Z3RyYWNraW5ndGVhbTJAZ21haWwuY29tIiwiaWF0IjoxNzEzMjQ1MTUzLCJleHAiOjE3MTMzMzE1NTN9.VF-rD4BR9xtBuvCpjYivoYZq_N0K2Wy5yy6vbUuRL90",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"AAA BBB\",\r\n  \"mobileNumber\": \"1234567590\",\r\n  \"state\": \"NoState\",\r\n  \"city\": \"NoCity\",\r\n  \"zip\": \"12345\",\r\n  \"address\": \"NoAddress\"\r\n}"
+								},
+								"url": {
+									"raw": "https://staging-be-ecom.techserve4u.com/api/address/update/661e0ccdf41927e75e0e067b",
+									"protocol": "https",
+									"host": [
+										"staging-be-ecom",
+										"techserve4u",
+										"com"
+									],
+									"path": [
+										"api",
+										"address",
+										"update",
+										"661e0ccdf41927e75e0e067b"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "Delete Address",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Buyer should be able to delete the address",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2EzM2YxOTc5YTliNzEyODRiOTljNzgiLCJyb2xlIjoiYWRtaW4iLCJlbWFpbCI6ImJ1Z3RyYWNraW5ndGVhbTJAZ21haWwuY29tIiwiaWF0IjoxNzEzMjQ1MTUzLCJleHAiOjE3MTMzMzE1NTN9.VF-rD4BR9xtBuvCpjYivoYZq_N0K2Wy5yy6vbUuRL90",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://staging-be-ecom.techserve4u.com/api/address/delete/661e0ccdf41927e75e0e067b",
+									"protocol": "https",
+									"host": [
+										"staging-be-ecom",
+										"techserve4u",
+										"com"
+									],
+									"path": [
+										"api",
+										"address",
+										"delete",
+										"661e0ccdf41927e75e0e067b"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "Buyer should not be able to delete the address without token",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/address/delete/661e0ccdf41927e75e0e067b",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"address",
+										"delete",
+										"661e0ccdf41927e75e0e067b"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
